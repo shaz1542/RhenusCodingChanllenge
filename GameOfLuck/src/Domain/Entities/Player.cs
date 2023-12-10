@@ -5,13 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace GameOfLuck.Domain.Entities;
-internal class Player
+public class Player : BaseAuditableEntity
 {
-    public int id { get; set; }
     public int name { get; set; }
     public int BalancePoints { get; set; }
 
-    public Player() { 
+    public Player()
+    {
         BalancePoints = 10000;
     }
 

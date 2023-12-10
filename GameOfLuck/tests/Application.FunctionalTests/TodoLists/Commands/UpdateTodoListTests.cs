@@ -3,7 +3,7 @@ using GameOfLuck.Application.TodoLists.Commands.CreateTodoList;
 using GameOfLuck.Application.TodoLists.Commands.UpdateTodoList;
 using GameOfLuck.Domain.Entities;
 
-using static Testing;
+using static GameOfLuck.Application.FunctionalTests.Testing;
 
 namespace GameOfLuck.Application.FunctionalTests.TodoLists.Commands;
 public class UpdateTodoListTests : BaseTestFixture

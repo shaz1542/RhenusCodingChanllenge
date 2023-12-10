@@ -6,6 +6,60 @@
     "version": "1.0.0"
   },
   "paths": {
+    "/api/Game": {
+      "post": {
+        "tags": [
+          "Game"
+        ],
+        "operationId": "CreateNewGame",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateNewGameCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Game"
+        ],
+        "operationId": "GetAllGames",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Game"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/TodoItems": {
       "get": {
         "tags": [
@@ -757,6 +811,156 @@
   },
   "components": {
     "schemas": {
+      "CreateNewGameCommand": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "Game": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseAuditableEntity"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "players": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Player"
+                }
+              },
+              "bets": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Bet"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "Player": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseAuditableEntity"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "balancePoints": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          }
+        ]
+      },
+      "BaseAuditableEntity": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseEntity"
+          },
+          {
+            "type": "object",
+            "x-abstract": true,
+            "additionalProperties": false,
+            "properties": {
+              "created": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "createdBy": {
+                "type": "string",
+                "nullable": true
+              },
+              "lastModified": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "lastModifiedBy": {
+                "type": "string",
+                "nullable": true
+              }
+            }
+          }
+        ]
+      },
+      "BaseEntity": {
+        "type": "object",
+        "x-abstract": true,
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "domainEvents": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BaseEvent"
+            }
+          }
+        }
+      },
+      "BaseEvent": {
+        "type": "object",
+        "x-abstract": true,
+        "additionalProperties": false
+      },
+      "Bet": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseAuditableEntity"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "betId": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "ammount": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "number": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "gameId": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "result": {
+                "$ref": "#/components/schemas/BetResult"
+              },
+              "playerId": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          }
+        ]
+      },
+      "BetResult": {
+        "type": "integer",
+        "description": "",
+        "x-enumNames": [
+          "Lost",
+          "Won"
+        ],
+        "enum": [
+          0,
+          1
+        ]
+      },
       "PaginatedListOfTodoItemBriefDto": {
         "type": "object",
         "additionalProperties": false,

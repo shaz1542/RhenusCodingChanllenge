@@ -14,6 +14,11 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
 
     public DbSet<TodoItem> TodoItems => Set<TodoItem>();
 
+    public DbSet<Game> Games => Set<Game>();
+    public DbSet<Player> Players => Set<Player>();
+
+    public DbSet<Bet> Bets => Set<Bet>();
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());

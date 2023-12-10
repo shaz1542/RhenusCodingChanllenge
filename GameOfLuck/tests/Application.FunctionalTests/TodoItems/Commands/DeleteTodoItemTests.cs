@@ -3,7 +3,7 @@ using GameOfLuck.Application.TodoItems.Commands.DeleteTodoItem;
 using GameOfLuck.Application.TodoLists.Commands.CreateTodoList;
 using GameOfLuck.Domain.Entities;
 
-using static Testing;
+using static GameOfLuck.Application.FunctionalTests.Testing;
 
 namespace GameOfLuck.Application.FunctionalTests.TodoItems.Commands;
 public class DeleteTodoItemTests : BaseTestFixture

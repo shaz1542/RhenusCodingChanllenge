@@ -2,7 +2,7 @@
 using GameOfLuck.Application.TodoLists.Commands.CreateTodoList;
 using GameOfLuck.Domain.Entities;
 
-using static Testing;
+using static GameOfLuck.Application.FunctionalTests.Testing;
 
 namespace GameOfLuck.Application.FunctionalTests.TodoLists.Commands;
 public class CreateTodoListTests : BaseTestFixture

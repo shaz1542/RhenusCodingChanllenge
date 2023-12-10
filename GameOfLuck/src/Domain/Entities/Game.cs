@@ -5,16 +5,22 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace GameOfLuck.Domain.Entities;
-internal class Game
+public class Game : BaseAuditableEntity
 {
+
     private int randomNumber;
-    private List<Player> players = new List<Player>();
+    public IList<Player> players { get; private set; } = new List<Player>();
+
+    public IList<Bet> Bets { get; private set; } = new List<Bet>();
+
     private Random random = new Random();
-    public void NewGame()
+    public  Game()
     {
         players.Clear();
         randomNumber = random.Next(10);
     }
+
+
     public void AddPlayer(Player player)
     {
         players.Add(player);
@@ -22,5 +28,7 @@ internal class Game
 
     public void RemovePlayer(Player player) { players.Remove(player); }
 
-    
+    public int GetSecretNumber() { 
+        return randomNumber;
+    }
 }

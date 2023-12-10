@@ -5,7 +5,7 @@ using GameOfLuck.Application.TodoLists.Commands.CreateTodoList;
 using GameOfLuck.Domain.Entities;
 using GameOfLuck.Domain.Enums;
 
-using static Testing;
+using static GameOfLuck.Application.FunctionalTests.Testing;
 
 namespace GameOfLuck.Application.FunctionalTests.TodoItems.Commands;
 public class UpdateTodoItemDetailTests : BaseTestFixture

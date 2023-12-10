@@ -2,7 +2,7 @@
 using GameOfLuck.Domain.Entities;
 using GameOfLuck.Domain.ValueObjects;
 
-using static Testing;
+using static GameOfLuck.Application.FunctionalTests.Testing;
 
 namespace GameOfLuck.Application.FunctionalTests.TodoLists.Queries;
 public class GetTodosTests : BaseTestFixture
