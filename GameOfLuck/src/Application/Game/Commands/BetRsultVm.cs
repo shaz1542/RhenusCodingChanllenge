@@ -2,7 +2,7 @@
 
 namespace GameOfLuck.Application.Game.Commands;
 
-public class BetResult
+public class BetResultVm
 {
     public string? account { get; set; }
     public string? Status { get; set; }

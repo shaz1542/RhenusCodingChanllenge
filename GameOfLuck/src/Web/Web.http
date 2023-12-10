@@ -26,7 +26,6 @@ Content-Type: application/json
 
 ###
 
-###
 
 # POST Users Login
 POST {{Web_HostAddress}}/api/Users/Login

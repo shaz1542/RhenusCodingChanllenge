@@ -7,10 +7,6 @@ using GameOfLuck.Application.Common.Interfaces;
 using GameOfLuck.Domain.Entities;
 
 namespace GameOfLuck.Application.Game.Queries;
-internal class GetAllGames
-{
-}
-
 
 public record GetAllGamesQuery : IRequest<IEnumerable<Domain.Entities.Game>>;
 

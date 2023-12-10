@@ -7,7 +7,7 @@ using GameOfLuck.Application.Common.Interfaces;
 using GameOfLuck.Domain.Entities;
 
 namespace GameOfLuck.Application.Game.Commands;
-public record ProcessBetCommand : IRequest<BetResult>
+public record ProcessBetCommand : IRequest<BetResultVm>
 {
     public int PlayerId;
     public int GameId { get; set; }
@@ -15,7 +15,7 @@ public record ProcessBetCommand : IRequest<BetResult>
     public int betNumber { get; set; }
 }
 
-public class ProcessBetCommandHandler : IRequestHandler<ProcessBetCommand, BetResult>
+public class ProcessBetCommandHandler : IRequestHandler<ProcessBetCommand, BetResultVm>
 {
     private readonly IApplicationDbContext _context;
 
@@ -24,9 +24,9 @@ public class ProcessBetCommandHandler : IRequestHandler<ProcessBetCommand, BetRe
         _context = context;
     }
 
-    public async Task<BetResult> Handle(ProcessBetCommand request, CancellationToken cancellationToken)
+    public async Task<BetResultVm> Handle(ProcessBetCommand request, CancellationToken cancellationToken)
     {
-        BetResult result = new BetResult();
+        BetResultVm result = new BetResultVm();
         var game = _context.Games.Where(x => x.Id == request.GameId).FirstOrDefault();
         var player = _context.Players.Where(x => x.Id == request.PlayerId).First();
 

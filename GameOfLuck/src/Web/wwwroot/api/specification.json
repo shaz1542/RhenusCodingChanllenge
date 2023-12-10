@@ -6,18 +6,71 @@
     "version": "1.0.0"
   },
   "paths": {
-    "/api/Game": {
+    "/api/Games": {
       "post": {
         "tags": [
-          "Game"
+          "Games"
         ],
-        "operationId": "CreateNewGame",
+        "operationId": "ProcessBet",
         "requestBody": {
           "x-name": "command",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateNewGameCommand"
+                "$ref": "#/components/schemas/ProcessBetCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BetResultVm"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Games"
+        ],
+        "operationId": "GetAllGames",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Game"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Players": {
+      "post": {
+        "tags": [
+          "Players"
+        ],
+        "operationId": "CreateNewPlayer",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateNewPlayerCommand"
               }
             }
           },
@@ -40,9 +93,9 @@
       },
       "get": {
         "tags": [
-          "Game"
+          "Players"
         ],
-        "operationId": "GetAllGames",
+        "operationId": "GetAllPlayers",
         "responses": {
           "200": {
             "description": "",
@@ -51,7 +104,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Game"
+                    "$ref": "#/components/schemas/Player"
                   }
                 }
               }
@@ -811,9 +864,41 @@
   },
   "components": {
     "schemas": {
-      "CreateNewGameCommand": {
+      "BetResultVm": {
         "type": "object",
-        "additionalProperties": false
+        "additionalProperties": false,
+        "properties": {
+          "account": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "points": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "ProcessBetCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "gameId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "betAmount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "betNumber": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
       },
       "Game": {
         "allOf": [
@@ -850,8 +935,8 @@
             "additionalProperties": false,
             "properties": {
               "name": {
-                "type": "integer",
-                "format": "int32"
+                "type": "string",
+                "nullable": true
               },
               "balancePoints": {
                 "type": "integer",
@@ -960,6 +1045,16 @@
           0,
           1
         ]
+      },
+      "CreateNewPlayerCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        }
       },
       "PaginatedListOfTodoItemBriefDto": {
         "type": "object",
