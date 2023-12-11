@@ -14,25 +14,13 @@ public class Game : BaseAuditableEntity
     public IList<Bet> Bets { get; private set; } = new List<Bet>();
 
     private Random random = new Random();
-    public Game()
-    {
-    }
 
-    public void GenerateRandomNumber()
-    {
-        randomNumber = random.Next(10);
-    }
+    public void GenerateRandomNumber() => randomNumber = random.Next(10);
 
 
-    public void AddPlayer(Player player)
-    {
-        players.Add(player);
-    }
+    public void AddPlayer(Player player) => players.Add(player);
 
-    public void RemovePlayer(Player player) { players.Remove(player); }
+    public void RemovePlayer(Player player) => players.Remove(player);
 
-    public int GetSecretNumber()
-    {
-        return randomNumber;
-    }
+    public int GetSecretNumber() => randomNumber;
 }

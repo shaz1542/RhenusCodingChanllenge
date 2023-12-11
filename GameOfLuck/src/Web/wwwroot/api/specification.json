@@ -905,6 +905,10 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
+          "betId": {
+            "type": "integer",
+            "format": "int32"
+          },
           "account": {
             "type": "string",
             "nullable": true
@@ -950,10 +954,6 @@
             "type": "object",
             "additionalProperties": false,
             "properties": {
-              "randomNumber": {
-                "type": "integer",
-                "format": "int32"
-              },
               "players": {
                 "type": "array",
                 "items": {

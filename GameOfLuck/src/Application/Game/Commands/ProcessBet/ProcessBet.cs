@@ -34,9 +34,10 @@ public class ProcessBetCommandHandler : IRequestHandler<ProcessBetCommand, BetRe
         if (game?.GetSecretNumber() == request.betNumber)
         {
             bet.result = BetResult.Won;
-            _context.Bets.Add(bet);
-            player.BalancePoints += request.betAmount * 9;
+            var betobject = await _context.Bets.AddAsync(bet);
 
+            player.BalancePoints += request.betAmount * 9;
+            result.betId = betobject.Entity.Id;
             result.Status = "Won";
             result.points = "+" + request.betAmount * 9;
         }

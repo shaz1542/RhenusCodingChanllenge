@@ -5,6 +5,7 @@ using GameOfLuck.Application.Game.Commands.ProcessBet;
 using GameOfLuck.Application.TodoItems.Commands.CreateTodoItem;
 using GameOfLuck.Application.TodoItems.Commands.UpdateTodoItemDetail;
 using GameOfLuck.Application.TodoLists.Commands.CreateTodoList;
+using GameOfLuck.Domain.Entities;
 using GameOfLuck.Domain.Enums;
 using static System.Net.Mime.MediaTypeNames;
 using static GameOfLuck.Application.FunctionalTests.Testing;
@@ -76,7 +77,7 @@ public class ProcessBetTests : BaseTestFixture
     public async Task ShouldProcessBetSuccessFully()
     {
         //var userId = await RunAsDefaultUserAsync();
-
+        int betAmount = 10;
 
         var playerId = await SendAsync(new CreateNewPlayerCommand
         {
@@ -89,16 +90,24 @@ public class ProcessBetTests : BaseTestFixture
 
         if (game != null)
         {
-            var command = new ProcessBetCommand { PlayerId = playerId, GameId = gameId, betAmount = 10, betNumber = game.GetSecretNumber() };
+            var command = new ProcessBetCommand { PlayerId = playerId, GameId = gameId, betAmount = betAmount, betNumber = game.GetSecretNumber() };
 
             var responce = await SendAsync(command);
 
             var gameupdated = await FindAsync<Domain.Entities.Game>(gameId);
             gameupdated.Should().NotBeNull();
-            gameupdated?.GetSecretNumber().Should().BeInRange(1, 9);
+            gameupdated?.GetSecretNumber().Should().BeInRange(0, 9);
             responce.Status.Should().BeEquivalentTo("Won");
             responce.account.Should().BeEquivalentTo("10090");
             responce.points.Should().BeEquivalentTo("+90");
+
+            var bet = await FindAsync<Domain.Entities.Bet>(responce.betId);
+            bet.Should().NotBeNull();
+
+            bet?.PlayerId.Should().Be(playerId);
+            bet?.GameId.Should().Be(gameId);
+            bet?.Number.Should().Equals(gameupdated?.GetSecretNumber());
+            bet?.Ammount.Should().Equals(betAmount);
         }
     }
 

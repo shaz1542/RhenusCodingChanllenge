@@ -10,9 +10,6 @@ public class Player : BaseAuditableEntity
     public string? Name { get; set; }
     public int BalancePoints { get; set; }
 
-    public Player()
-    {
-        BalancePoints = 10000;
-    }
+    public Player() => BalancePoints = 10000;
 
 }
