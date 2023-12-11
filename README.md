@@ -1,5 +1,5 @@
 
-# Coding Challenge
+# Rhenus Coding Challenge
 
 The game allows the player to make bets between 0-9 
 
