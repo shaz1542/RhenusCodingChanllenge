@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using GameOfLuck.Application.Common.Interfaces;
 using GameOfLuck.Domain.Entities;
 
-namespace GameOfLuck.Application.Game.Commands;
+namespace GameOfLuck.Application.Game.Commands.ProcessBet;
 public record ProcessBetCommand : IRequest<BetResultVm>
 {
-    public int PlayerId;
+    public int PlayerId { get; set; }
     public int GameId { get; set; }
     public int betAmount { get; set; }
     public int betNumber { get; set; }
@@ -33,20 +33,20 @@ public class ProcessBetCommandHandler : IRequestHandler<ProcessBetCommand, BetRe
         var bet = new Domain.Entities.Bet(request.GameId, request.PlayerId, request.betAmount, request.betNumber);
         if (game?.GetSecretNumber() == request.betNumber)
         {
-            bet.result = Domain.Entities.BetResult.Won;
+            bet.result = BetResult.Won;
             _context.Bets.Add(bet);
             player.BalancePoints += request.betAmount * 9;
 
             result.Status = "Won";
-            result.points = request.betAmount * 9;
+            result.points = "+" + request.betAmount * 9;
         }
         else
         {
-            bet.result = Domain.Entities.BetResult.Lost;
+            bet.result = BetResult.Lost;
             _context.Bets.Add(bet);
             player.BalancePoints -= request.betAmount;
             result.Status = "Lost";
-            result.points = request.betAmount * -1;
+            result.points = request.betAmount * -1 + "";
         }
         await _context.SaveChangesAsync(cancellationToken);
         result.account = player.BalancePoints.ToString();

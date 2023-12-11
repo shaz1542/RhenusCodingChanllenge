@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using GameOfLuck.Application.Common.Interfaces;
 using GameOfLuck.Domain.Entities;
 
-namespace GameOfLuck.Application.Game.Commands;
+namespace GameOfLuck.Application.Game.Commands.CreateNewGame;
 
 public record CreateNewGameCommand : IRequest<int>
 {
@@ -25,6 +25,8 @@ public class CreateNewGameCommandHandler : IRequestHandler<CreateNewGameCommand,
     public async Task<int> Handle(CreateNewGameCommand request, CancellationToken cancellationToken)
     {
         var entity = new Domain.Entities.Game();
+
+        entity.GenerateRandomNumber();
 
         _context.Games.Add(entity);
 

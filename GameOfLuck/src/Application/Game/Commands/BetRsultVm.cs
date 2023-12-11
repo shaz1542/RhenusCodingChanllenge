@@ -6,5 +6,5 @@ public class BetResultVm
 {
     public string? account { get; set; }
     public string? Status { get; set; }
-    public int points { get; set; }
+    public string? points { get; set; }
 }

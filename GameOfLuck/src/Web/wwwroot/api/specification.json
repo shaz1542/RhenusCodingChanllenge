@@ -11,13 +11,13 @@
         "tags": [
           "Games"
         ],
-        "operationId": "ProcessBet",
+        "operationId": "CreateNewGame",
         "requestBody": {
           "x-name": "command",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProcessBetCommand"
+                "$ref": "#/components/schemas/CreateNewGameCommand"
               }
             }
           },
@@ -30,7 +30,8 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BetResultVm"
+                  "type": "integer",
+                  "format": "int32"
                 }
               }
             }
@@ -52,6 +53,38 @@
                   "items": {
                     "$ref": "#/components/schemas/Game"
                   }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Games/ProcessBet": {
+      "post": {
+        "tags": [
+          "Games"
+        ],
+        "operationId": "ProcessBet",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProcessBetCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BetResultVm"
                 }
               }
             }
@@ -864,6 +897,10 @@
   },
   "components": {
     "schemas": {
+      "CreateNewGameCommand": {
+        "type": "object",
+        "additionalProperties": false
+      },
       "BetResultVm": {
         "type": "object",
         "additionalProperties": false,
@@ -877,8 +914,8 @@
             "nullable": true
           },
           "points": {
-            "type": "integer",
-            "format": "int32"
+            "type": "string",
+            "nullable": true
           }
         }
       },
@@ -886,6 +923,10 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
+          "playerId": {
+            "type": "integer",
+            "format": "int32"
+          },
           "gameId": {
             "type": "integer",
             "format": "int32"
@@ -909,6 +950,10 @@
             "type": "object",
             "additionalProperties": false,
             "properties": {
+              "randomNumber": {
+                "type": "integer",
+                "format": "int32"
+              },
               "players": {
                 "type": "array",
                 "items": {

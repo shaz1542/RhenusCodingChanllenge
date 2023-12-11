@@ -1,4 +1,6 @@
 ﻿using GameOfLuck.Application.Game.Commands;
+using GameOfLuck.Application.Game.Commands.CreateNewGame;
+using GameOfLuck.Application.Game.Commands.ProcessBet;
 using GameOfLuck.Application.Game.Queries;
 using GameOfLuck.Application.TodoLists.Commands.CreateTodoList;
 using GameOfLuck.Domain.Entities;
@@ -12,8 +14,8 @@ public class Games : EndpointGroupBase
     {
         app.MapGroup(this)
             //.RequireAuthorization()
-            //.Map(CreateNewGame)
-            .MapPost(ProcessBet)
+            .MapPost(CreateNewGame)
+            .MapPost(ProcessBet, "/ProcessBet")
             .MapGet(GetAllGames);
     }
     public async Task<IEnumerable<Domain.Entities.Game>> GetAllGames(ISender sender)
@@ -25,7 +27,6 @@ public class Games : EndpointGroupBase
     {
         return await sender.Send(command);
     }
-
 
     public async Task<BetResultVm> ProcessBet(ISender sender, ProcessBetCommand command)
     {
