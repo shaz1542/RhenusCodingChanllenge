@@ -21,7 +21,6 @@ public class ProcessBetTests : BaseTestFixture
     [Test]
     public async Task InvalidUserPlayerShouldThrowExceoption()
     {
-        //var userId = await RunAsDefaultUserAsync();
         var playerId = 1;
         var gameId = await SendAsync(new CreateNewGameCommand { });
         var game = FindAsync<Domain.Entities.Game>(gameId).Result;
@@ -52,8 +51,7 @@ public class ProcessBetTests : BaseTestFixture
     [Test]
     public async Task InvalidBetAmoutShouldThrowExceoption()
     {
-        //var userId = await RunAsDefaultUserAsync();
-
+        
         var playerId = await SendAsync(new CreateNewPlayerCommand { Name = "Test Player" });
         var player = FindAsync<Domain.Entities.Game>(playerId).Result;
         var gameId = await SendAsync(new CreateNewGameCommand { });
@@ -70,7 +68,6 @@ public class ProcessBetTests : BaseTestFixture
     [Test]
     public async Task ShouldProcessBetSuccessFully()
     {
-        //var userId = await RunAsDefaultUserAsync();
         int betAmount = 10;
 
         var playerId = await SendAsync(new CreateNewPlayerCommand
