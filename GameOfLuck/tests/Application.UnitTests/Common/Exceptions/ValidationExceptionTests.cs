@@ -19,13 +19,13 @@ public class ValidationExceptionTests
     {
         var failures = new List<ValidationFailure>
             {
-                new ValidationFailure("Age", "must be over 18"),
+                new ValidationFailure("Number", "must be less then 9"),
             };
 
         var actual = new ValidationException(failures).Errors;
 
-        actual.Keys.Should().BeEquivalentTo(new string[] { "Age" });
-        actual["Age"].Should().BeEquivalentTo(new string[] { "must be over 18" });
+        actual.Keys.Should().BeEquivalentTo(new string[] { "Number" });
+        actual["Number"].Should().BeEquivalentTo(new string[] { "must be less then 9" });
     }
 
     [Test]
@@ -33,30 +33,28 @@ public class ValidationExceptionTests
     {
         var failures = new List<ValidationFailure>
             {
-                new ValidationFailure("Age", "must be 18 or older"),
-                new ValidationFailure("Age", "must be 25 or younger"),
-                new ValidationFailure("Password", "must contain at least 8 characters"),
-                new ValidationFailure("Password", "must contain a digit"),
-                new ValidationFailure("Password", "must contain upper case letter"),
-                new ValidationFailure("Password", "must contain lower case letter"),
+                new ValidationFailure("Number", "must be greater then 0"),
+                new ValidationFailure("Number", "must be less then 9"),
+                new ValidationFailure("Name", "must contain at least 4 characters"),
+                new ValidationFailure("Name", "must is only string"),
+
             };
 
         var actual = new ValidationException(failures).Errors;
 
-        actual.Keys.Should().BeEquivalentTo(new string[] { "Password", "Age" });
+        actual.Keys.Should().BeEquivalentTo(new string[] { "Number", "Name" });
 
-        actual["Age"].Should().BeEquivalentTo(new string[]
+        actual["Number"].Should().BeEquivalentTo(new string[]
         {
-                "must be 25 or younger",
-                "must be 18 or older",
+                "must be greater then 0",
+                "must be less then 9",
         });
 
-        actual["Password"].Should().BeEquivalentTo(new string[]
+        actual["Name"].Should().BeEquivalentTo(new string[]
         {
-                "must contain lower case letter",
-                "must contain upper case letter",
-                "must contain at least 8 characters",
-                "must contain a digit",
+                "must contain at least 4 characters",
+                "must is only string",
+
         });
     }
 }
