@@ -20,6 +20,7 @@ public class GetAllGamesQueryHandler : IRequestHandler<GetAllGamesQuery, IEnumer
     {
         _context = context;
         _mapper = mapper;
+        _mapper = mapper;
     }
     public async Task<IEnumerable<Domain.Entities.Game>> Handle(GetAllGamesQuery request, CancellationToken cancellationToken)
     {

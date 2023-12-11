@@ -1,10 +1,6 @@
 ﻿using GameOfLuck.Application.Common.Exceptions;
 using GameOfLuck.Application.Game.Commands;
-using GameOfLuck.Application.Game.Commands.CreateNewGame;
-using GameOfLuck.Application.Game.Commands.ProcessBet;
-using GameOfLuck.Application.TodoItems.Commands.CreateTodoItem;
-using GameOfLuck.Application.TodoItems.Commands.UpdateTodoItemDetail;
-using GameOfLuck.Application.TodoLists.Commands.CreateTodoList;
+using GameOfLuck.Application.Players.Commands;
 using GameOfLuck.Domain.Entities;
 using GameOfLuck.Domain.Enums;
 using static System.Net.Mime.MediaTypeNames;
@@ -106,8 +102,8 @@ public class ProcessBetTests : BaseTestFixture
 
             bet?.PlayerId.Should().Be(playerId);
             bet?.GameId.Should().Be(gameId);
-            bet?.Number.Should().Equals(gameupdated?.GetSecretNumber());
-            bet?.Ammount.Should().Equals(betAmount);
+            bet?.Number.Should().Be(gameupdated?.GetSecretNumber());
+            bet?.Ammount.Should().Be(betAmount);
         }
     }
 

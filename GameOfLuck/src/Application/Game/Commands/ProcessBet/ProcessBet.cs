@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using GameOfLuck.Application.Common.Interfaces;
 using GameOfLuck.Domain.Entities;
 
-namespace GameOfLuck.Application.Game.Commands.ProcessBet;
+namespace GameOfLuck.Application.Game.Commands;
 public record ProcessBetCommand : IRequest<BetResultVm>
 {
     public int PlayerId { get; set; }
@@ -31,27 +31,29 @@ public class ProcessBetCommandHandler : IRequestHandler<ProcessBetCommand, BetRe
         var player = _context.Players.Where(x => x.Id == request.PlayerId).First();
 
         var bet = new Domain.Entities.Bet(request.GameId, request.PlayerId, request.betAmount, request.betNumber);
+        
         if (game?.GetSecretNumber() == request.betNumber)
         {
             bet.result = BetResult.Won;
-            var betobject = await _context.Bets.AddAsync(bet);
-
             player.BalancePoints += request.betAmount * 9;
-            result.betId = betobject.Entity.Id;
+            var betObject = await _context.Bets.AddAsync(bet);
+            await _context.SaveChangesAsync(cancellationToken);
+            result.betId = betObject.Entity.Id;
             result.Status = "Won";
             result.points = "+" + request.betAmount * 9;
+            
         }
         else
         {
             bet.result = BetResult.Lost;
-            _context.Bets.Add(bet);
             player.BalancePoints -= request.betAmount;
+            var betObject = await _context.Bets.AddAsync(bet);
+            await _context.SaveChangesAsync(cancellationToken);
             result.Status = "Lost";
             result.points = request.betAmount * -1 + "";
+            result.betId = betObject.Entity.Id;
         }
-        await _context.SaveChangesAsync(cancellationToken);
         result.account = player.BalancePoints.ToString();
-
         return result;
     }
 }

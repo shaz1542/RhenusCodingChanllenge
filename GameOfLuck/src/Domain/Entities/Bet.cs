@@ -4,8 +4,6 @@
 namespace GameOfLuck.Domain.Entities;
 public class Bet : BaseAuditableEntity
 {
-
-    public int BetId { get; set; }
     public int Ammount { get; set; }
     public int Number { get; set; }
     public int GameId { get; set; }
@@ -17,7 +15,7 @@ public class Bet : BaseAuditableEntity
     public Bet(int gameId, int playerId, int ammount, int number)
     {
         this.GameId = gameId;
-        this.PlayerId = PlayerId;
+        this.PlayerId = playerId;
         this.Ammount = ammount;
         this.Number = number;
     }

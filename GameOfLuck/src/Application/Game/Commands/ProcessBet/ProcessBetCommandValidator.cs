@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GameOfLuck.Application.Common.Interfaces;
-using GameOfLuck.Application.TodoLists.Commands.CreateTodoList;
-using GameOfLuck.Application.TodoLists.Commands.UpdateTodoList;
-using Microsoft.EntityFrameworkCore;
+﻿using GameOfLuck.Application.Common.Interfaces;
 
 namespace GameOfLuck.Application.Game.Commands.ProcessBet;
 public class ProcessBetCommandValidator : AbstractValidator<ProcessBetCommand>

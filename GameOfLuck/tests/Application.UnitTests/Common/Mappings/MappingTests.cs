@@ -3,9 +3,7 @@ using System.Runtime.Serialization;
 using AutoMapper;
 using GameOfLuck.Application.Common.Interfaces;
 using GameOfLuck.Application.Common.Models;
-using GameOfLuck.Application.TodoItems.Queries.GetTodoItemsWithPagination;
-using GameOfLuck.Application.TodoLists.Queries.GetTodos;
-using GameOfLuck.Domain.Entities;
+
 using NUnit.Framework;
 
 namespace GameOfLuck.Application.UnitTests.Common.Mappings;
@@ -28,18 +26,7 @@ public class MappingTests
         _configuration.AssertConfigurationIsValid();
     }
 
-    [Test]
-    [TestCase(typeof(TodoList), typeof(TodoListDto))]
-    [TestCase(typeof(TodoItem), typeof(TodoItemDto))]
-    [TestCase(typeof(TodoList), typeof(LookupDto))]
-    [TestCase(typeof(TodoItem), typeof(LookupDto))]
-    [TestCase(typeof(TodoItem), typeof(TodoItemBriefDto))]
-    public void ShouldSupportMappingFromSourceToDestination(Type source, Type destination)
-    {
-        var instance = GetInstanceOf(source);
 
-        _mapper.Map(instance, source, destination);
-    }
 
     private object GetInstanceOf(Type type)
     {

@@ -3,10 +3,6 @@
 namespace GameOfLuck.Application.Common.Interfaces;
 public interface IApplicationDbContext
 {
-    DbSet<TodoList> TodoLists { get; }
-
-    DbSet<TodoItem> TodoItems { get; }
-
     DbSet<Domain.Entities.Bet> Bets { get; }
 
     DbSet<Player> Players { get; }

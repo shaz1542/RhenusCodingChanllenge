@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 namespace GameOfLuck.Domain.Entities;
 public class Game : BaseAuditableEntity
 {
-    private int randomNumber { get; set; }
+    public int randomNumber { get; set; }
     public IList<Player> players { get; private set; } = new List<Player>();
 
     public IList<Bet> Bets { get; private set; } = new List<Bet>();
 
-    private Random random = new Random();
+    private readonly Random random = new Random();
 
     public void GenerateRandomNumber() => randomNumber = random.Next(10);
 

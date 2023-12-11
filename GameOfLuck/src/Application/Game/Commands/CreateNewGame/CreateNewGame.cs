@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using GameOfLuck.Application.Common.Interfaces;
 using GameOfLuck.Domain.Entities;
 
-namespace GameOfLuck.Application.Game.Commands.CreateNewGame;
+namespace GameOfLuck.Application.Game.Commands;
 
 public record CreateNewGameCommand : IRequest<int>
 {

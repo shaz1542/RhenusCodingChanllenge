@@ -1,10 +1,5 @@
 ﻿using GameOfLuck.Application.Game.Commands;
-using GameOfLuck.Application.Game.Commands.CreateNewGame;
-using GameOfLuck.Application.Game.Commands.ProcessBet;
 using GameOfLuck.Application.Game.Queries;
-using GameOfLuck.Application.TodoLists.Commands.CreateTodoList;
-using GameOfLuck.Domain.Entities;
-
 
 namespace GameOfLuck.Web.Endpoints;
 
@@ -16,11 +11,17 @@ public class Games : EndpointGroupBase
             //.RequireAuthorization()
             .MapPost(CreateNewGame)
             .MapPost(ProcessBet, "/ProcessBet")
-            .MapGet(GetAllGames);
+            .MapGet(GetAllGames)
+            .MapGet(GetGameById,"{id}");
     }
     public async Task<IEnumerable<Domain.Entities.Game>> GetAllGames(ISender sender)
     {
         return await sender.Send(new GetAllGamesQuery());
+    }
+
+    public async Task<Domain.Entities.Game> GetGameById(ISender sender, [AsParameters] GetGameByIdQuery query)
+    {
+        return await sender.Send(query);
     }
 
     public async Task<int> CreateNewGame(ISender sender, CreateNewGameCommand command)

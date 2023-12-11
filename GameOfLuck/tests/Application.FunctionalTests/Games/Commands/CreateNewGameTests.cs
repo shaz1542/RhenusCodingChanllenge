@@ -1,4 +1,4 @@
-﻿using GameOfLuck.Application.Game.Commands.CreateNewGame;
+﻿using GameOfLuck.Application.Game.Commands;
 
 using static GameOfLuck.Application.FunctionalTests.Testing;
 
@@ -23,13 +23,11 @@ public class CreateNewGameTests : BaseTestFixture
     public async Task ShouldhaveValidSecretNumber()
     {
         //var userId = await RunAsDefaultUserAsync();
-
         var command = new CreateNewGameCommand { };
-
         var gameId = await SendAsync(command);
         var item = await FindAsync<Domain.Entities.Game>(gameId);
         item.Should().NotBeNull();
-        item?.GetSecretNumber().Should().BeInRange(1, 9);
+        item?.GetSecretNumber().Should().BeInRange(0, 9);
     }
 
 }
