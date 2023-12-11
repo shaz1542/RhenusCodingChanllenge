@@ -2,7 +2,6 @@
 using GameOfLuck.Application.Game.Commands;
 using GameOfLuck.Application.Players.Commands;
 using GameOfLuck.Domain.Entities;
-using GameOfLuck.Domain.Enums;
 using static System.Net.Mime.MediaTypeNames;
 using static GameOfLuck.Application.FunctionalTests.Testing;
 
@@ -39,7 +38,6 @@ public class ProcessBetTests : BaseTestFixture
     [Test]
     public async Task InvalidGameShouldThrowExceoption()
     {
-        //var userId = await RunAsDefaultUserAsync();
         var playerId = await SendAsync(new CreateNewPlayerCommand { Name = "Test Player" });
         var gameId = 1;
         var player = FindAsync<Domain.Entities.Player>(playerId).Result;
